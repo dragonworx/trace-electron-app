@@ -14,15 +14,17 @@ export class ClassyCollection<T> {
   values: T[] = [];
   private classifications: Map<string, Classification<T>> = new Map();
 
-  constructor(initialValues?: T[], classifications?: Classifications<T>) {
+  constructor(classifications?: Classifications<T>, initialValues?: T[]) {
     if (initialValues) {
       this.values = initialValues;
     }
+
     if (classifications) {
       Object.keys(classifications).forEach(name => {
         this.addClassification(name, classifications[name]);
       });
     }
+
     const { values } = this;
     if (values.length) {
       this.values = values.filter(value => {
@@ -66,5 +68,9 @@ export class ClassyCollection<T> {
   add(value: T) {
     this.values.push(value);
     this.applyClassifications(value);
+  }
+
+  map<MT>(fn: (item: T, i: number) => MT) {
+    return this.values.map(fn);
   }
 }

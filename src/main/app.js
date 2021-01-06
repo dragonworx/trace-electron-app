@@ -57,7 +57,7 @@ class App {
   }
 
   send(message) {
-    log('cyan', `app.send: ${JSON.stringify(message)}`);
+    // log('cyan', `app.send: ${JSON.stringify(message)}`);
     // try {
     this.browserWindow.webContents.send('message', message);
     // } catch (e) {

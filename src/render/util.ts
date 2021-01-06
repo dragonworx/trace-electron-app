@@ -22,3 +22,10 @@ export const getTime = (timestamp: number) => {
     milliseconds: date.getMilliseconds(),
   };
 };
+
+export const isFullScroll = (element: HTMLElement) => {
+  const scrollTop = element.scrollTop;
+  const scrollHeight = element.scrollHeight;
+  const offsetHeight = element.offsetHeight;
+  return scrollTop === scrollHeight - offsetHeight;
+};

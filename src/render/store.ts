@@ -1,14 +1,15 @@
-import { ClassyCollection } from './ClassyCollection';
+// import { ClassyCollection } from './ClassyCollection';
 
 export interface Message {
   id: string;
   sentAt: number;
-  type: string;
+  type: 'flush' | 'connect' | 'dissconnect' | 'message';
   data: any[];
 }
 
 export interface Store {
   messages: Message[];
+  clients: Set<string>;
   update: () => void;
   toString: () => string;
 }
@@ -20,6 +21,7 @@ export interface WithStore {
 // default store ...
 export const store: Store = {
   messages: [],
+  clients: new Set(),
   update() {
     return void 0;
   },

@@ -27,7 +27,9 @@ export function App(props: WithStore) {
 
   return (
     <ul id="app">
-      <Log store={store} />
+      <div id="body" onScroll={() => store.update()}>
+        <Log store={store} />
+      </div>
     </ul>
   );
 }

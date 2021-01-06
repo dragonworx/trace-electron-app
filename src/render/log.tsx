@@ -1,10 +1,20 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { WithStore } from './store';
-import { getTime } from './util';
+import { getTime, isFullScroll } from './util';
 
 export function Log(props: WithStore) {
   const { store } = props;
-  const { messages } = store;
+  const { messages, clients } = store;
+
+  const scrollIfNeeded = () => {
+    const body = document.getElementById('body') as HTMLTableElement;
+    const log = document.getElementById('log') as HTMLTableElement;
+    const lastRow = log.rows[log.rows.length - 1];
+    lastRow.scrollIntoView();
+  };
+
+  useEffect(scrollIfNeeded);
 
   return (
     <table id="log">
@@ -13,7 +23,7 @@ export function Log(props: WithStore) {
           <th>type</th>
           <th>data</th>
           <th>sentAt</th>
-          <th>id</th>
+          <th>id ({clients.size})</th>
         </tr>
       </thead>
       <tbody>
@@ -24,9 +34,13 @@ export function Log(props: WithStore) {
           return (
             <tr key={i}>
               <td className={`type ${message.type}`}>{message.type}</td>
-              <td className="data">{JSON.stringify(message.data)}</td>
-              <td className="sentAt">{`${hours}:${minutes}:${seconds}:${milliseconds}`}</td>
-              <td className="id">{message.id}</td>
+              <td className={`data ${message.type}`}>
+                {JSON.stringify(message.data)}
+              </td>
+              <td
+                className={`sentAt ${message.type}`}
+              >{`${hours}:${minutes}:${seconds}:${milliseconds}`}</td>
+              <td className={`id ${message.type}`}>{message.id}</td>
             </tr>
           );
         })}

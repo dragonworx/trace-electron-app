@@ -5,4 +5,4 @@ import './less/index.less';
 
 import { store } from './store';
 
-ReactDOM.render(<App store={store} />, document.getElementById('react'));
+ReactDOM.render(<App store={store} />, document.getElementById('main'));

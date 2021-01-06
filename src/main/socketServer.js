@@ -20,20 +20,12 @@ class SocketServer {
     client.on('message', message => {
       // track messages from client ...
       log('yellow', `message: ${JSON.stringify(message)}`);
-      const { id, sentAt, type, data } = message;
-      if (type === 'flush') {
-        data.forEach(msg =>
-          this.app.send({
-            // id: client.id,
-            id,
-            sentAt,
-            type: 'message',
-            data: msg,
-          }),
-        );
-      } else {
-        this.app.send(message);
-      }
+      this.app.send(message);
+    });
+
+    client.on('flush', buffer => {
+      log('white', `flush: ${buffer.length}`);
+      buffer.forEach(msg => this.app.send(msg));
     });
 
     client.on('disconnect', () => {
