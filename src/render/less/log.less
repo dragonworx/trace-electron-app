@@ -1,0 +1,61 @@
+@import 'mixin.less';
+
+#log {
+  .stickyTable();
+  background-color: #ccc;
+  font-size: 12px;
+
+  th {
+    background-color: white;
+    font-size: 12px;
+    padding-right: 5px;
+  }
+
+  td {
+    padding-right: 5px;
+    vertical-align: middle;
+  }
+
+  .type {
+    font-weight: bold;
+    text-align: right;
+    background-color: #333;
+    min-width: 100px;
+  }
+
+  .type.connect {
+    color: lightgreen;
+    background-color: green;
+  }
+
+  .type.dissconnect {
+    color: lightgoldenrodyellow;
+    background-color: red;
+  }
+
+  .type.message {
+    color: orange;
+  }
+
+  .type.message:after {
+    content: ':';
+  }
+
+  .data {
+    font-family: monospace;
+    color: white;
+    background-color: #666;
+    padding: 3px;
+    border-bottom: 1px solid #ccc;
+    white-space: nowrap;
+  }
+
+  .sentAt {
+    color: #999;
+  }
+
+  .id {
+    white-space: nowrap;
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,22 @@
+<!-- // src/index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Trace</title>
+    <link rel="style" href="./style.css" />
+  </head>
+  <body>
+    <div id="react">
+      <div id="load-fail">
+        <h1>Trace failed to load</h1>
+      </div>
+      <script>
+        window.loadFailTimeoutId = setTimeout(() => {
+          const el = document.getElementById('load-fail');
+          el && (el.style.display = 'inherit');
+        }, 1000);
+      </script>
+    </div>
+  </body>
+</html>
