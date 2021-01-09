@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { WithStore } from './store';
-import { getTime, isFullScroll } from './util';
+import { WithStore } from '../store';
+import { getTime, isFullScroll } from '../util';
 
 export function Log(props: WithStore) {
   const { store } = props;
@@ -27,7 +27,7 @@ export function Log(props: WithStore) {
         </tr>
       </thead>
       <tbody>
-        {messages.map((message, i) => {
+        {messages.getSegment('*').map((message, i) => {
           const { hours, minutes, seconds, milliseconds } = getTime(
             message.sentAt,
           );

@@ -1,4 +1,4 @@
-// import { ClassyCollection } from './ClassyCollection';
+import { ClassifiedCollection } from './ClassifiedCollection';
 
 export interface Message {
   id: string;
@@ -8,7 +8,7 @@ export interface Message {
 }
 
 export interface Store {
-  messages: Message[];
+  messages: ClassifiedCollection<Message>;
   clients: Set<string>;
   update: () => void;
   toString: () => string;
@@ -20,7 +20,7 @@ export interface WithStore {
 
 // default store ...
 export const store: Store = {
-  messages: [],
+  messages: new ClassifiedCollection([(message: Message) => message.type]),
   clients: new Set(),
   update() {
     return void 0;

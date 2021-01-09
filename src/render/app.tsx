@@ -5,7 +5,8 @@ import { WithStore, Message } from './store';
 import { processMessage } from './processMessage';
 import { useInterval } from './hooks';
 import { log } from './util';
-import { Log } from './log';
+import { Log } from './views/log';
+import { TraceLinearView } from './views/trace-linear-view';
 
 export function App(props: WithStore) {
   const { store } = props;
@@ -28,7 +29,7 @@ export function App(props: WithStore) {
   return (
     <ul id="app">
       <div id="body" onScroll={() => store.update()}>
-        <Log store={store} />
+        <TraceLinearView store={store} />
       </div>
     </ul>
   );
