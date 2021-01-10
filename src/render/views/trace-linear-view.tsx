@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { WithStore } from '../store';
+import { WithStore, TraceMessage } from '../store';
 import { getTime, isFullScroll } from '../util';
 
 export function TraceLinearView(props: WithStore) {
@@ -8,39 +8,37 @@ export function TraceLinearView(props: WithStore) {
   const { messages, clients } = store;
 
   const scrollIfNeeded = () => {
-    const body = document.getElementById('body') as HTMLTableElement;
-    const log = document.getElementById('log') as HTMLTableElement;
-    const lastRow = log.rows[log.rows.length - 1];
+    const table = document.getElementById(
+      'trace-linear-view',
+    ) as HTMLTableElement;
+    const lastRow = table.rows[table.rows.length - 1];
     lastRow.scrollIntoView();
   };
 
   useEffect(scrollIfNeeded);
 
   return (
-    <table id="log">
+    <table id="trace-linear-view">
       <thead>
         <tr>
-          <th>type</th>
-          <th>data</th>
-          <th>sentAt</th>
-          <th>id ({clients.size})</th>
+          <th>sendAt</th>
+          <th>namespace</th>
+          <th>args</th>
         </tr>
       </thead>
       <tbody>
         {messages.getSegment('trace').map((message, i) => {
+          const { namespace, args } = (message.data as unknown) as TraceMessage;
           const { hours, minutes, seconds, milliseconds } = getTime(
             message.sentAt,
           );
           return (
             <tr key={i}>
-              <td className={`type ${message.type}`}>{message.type}</td>
-              <td className={`data ${message.type}`}>
-                {JSON.stringify(message.data)}
-              </td>
               <td
-                className={`sentAt ${message.type}`}
+                className={`sentAt`}
               >{`${hours}:${minutes}:${seconds}:${milliseconds}`}</td>
-              <td className={`id ${message.type}`}>{message.id}</td>
+              <td className={`namespace`}>{namespace}</td>
+              <td className={`args`}>{JSON.stringify(args)}</td>
             </tr>
           );
         })}

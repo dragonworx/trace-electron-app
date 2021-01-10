@@ -49,7 +49,7 @@ class App {
     log('cyan', 'app.onDidFinishLoad');
 
     this.browserWindow.show();
-    this.browserWindow.webContents.openDevTools();
+    // this.browserWindow.webContents.openDevTools();
   }
 
   onBeforeQuit() {

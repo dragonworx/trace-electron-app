@@ -8,9 +8,8 @@ export function Log(props: WithStore) {
   const { messages, clients } = store;
 
   const scrollIfNeeded = () => {
-    const body = document.getElementById('body') as HTMLTableElement;
-    const log = document.getElementById('log') as HTMLTableElement;
-    const lastRow = log.rows[log.rows.length - 1];
+    const table = document.getElementById('log') as HTMLTableElement;
+    const lastRow = table.rows[table.rows.length - 1];
     lastRow.scrollIntoView();
   };
 

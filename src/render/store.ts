@@ -7,6 +7,11 @@ export interface Message {
   data: any[];
 }
 
+export interface TraceMessage {
+  namespace: string;
+  args: any[];
+}
+
 export interface Store {
   messages: ClassifiedCollection<Message>;
   clients: Set<string>;
