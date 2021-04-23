@@ -3,8 +3,9 @@ import { ClassifiedCollection } from './ClassifiedCollection';
 export interface Message {
   id: string;
   sentAt: number;
-  type: 'flush' | 'connect' | 'dissconnect' | 'message';
-  data: any[];
+  type: 'flush' | 'connect' | 'dissconnect' | 'trace';
+  data: any;
+  _isFirstForNS: boolean;
 }
 
 export interface TraceMessage {
@@ -23,9 +24,11 @@ export interface WithStore {
   store: Store;
 }
 
+export const classifyByMessageType = (message: Message) => message.type;
+
 // default store ...
 export const store: Store = {
-  messages: new ClassifiedCollection([(message: Message) => message.type]),
+  messages: new ClassifiedCollection([classifyByMessageType]),
   clients: new Set(),
   update() {
     return void 0;

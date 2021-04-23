@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { WithStore, TraceMessage } from '../store';
-import { getTime, isFullScroll } from '../util';
+import { getTime } from '../util';
+import { NS } from '../namespace';
 
 export function TraceLinearView(props: WithStore) {
   const { store } = props;
@@ -15,7 +16,7 @@ export function TraceLinearView(props: WithStore) {
     lastRow.scrollIntoView();
   };
 
-  useEffect(scrollIfNeeded);
+  useEffect(scrollIfNeeded, [messages.getSegment('trace').length]);
 
   return (
     <table id="trace-linear-view">
@@ -37,7 +38,13 @@ export function TraceLinearView(props: WithStore) {
               <td
                 className={`sentAt`}
               >{`${hours}:${minutes}:${seconds}:${milliseconds}`}</td>
-              <td className={`namespace`}>{namespace}</td>
+              <td
+                className={`namespace ${
+                  message._isFirstForNS ? 'first-occurrence' : ''
+                }`}
+              >
+                {namespace}
+              </td>
               <td className={`args`}>{JSON.stringify(args)}</td>
             </tr>
           );
